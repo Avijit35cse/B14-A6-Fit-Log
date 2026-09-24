@@ -1,13 +1,7 @@
 import Image from 'next/image';
-import Link from 'next/link';
+import NavLink from './NavLink';
 
-const link = <>
-    <Link href="/" 
-    className="rounded-full bg-[#1A2312] px-4 py-1.5 text-[12px] font-semibold font-inter text-[#C2F800]">Workouts</Link>
-    
-    <Link href="/my-plan" 
-    className='rounded-full px-4 py-1.5 text-[12px] font-medium font-inter text-[#9CA3AF]'>My Plan</Link>
-</>
+
 
 const Navbar = () => {
     return (
@@ -21,7 +15,7 @@ const Navbar = () => {
                         <ul
                             tabIndex={-1}
                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                            {link}
+                            <NavLink/>
                         </ul>
                     </div>
 
@@ -35,7 +29,7 @@ const Navbar = () => {
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1 flex items-center gap-2">
-                        {link}
+                        <NavLink/>
                     </ul>
                 </div>
                 <div className="navbar-end gap-2 lg:gap-4">
