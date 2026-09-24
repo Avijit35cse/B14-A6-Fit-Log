@@ -1,9 +1,10 @@
-import Navbar from '@/components/shared/Navbar';
+import Hero from '@/components/home/Hero';
+
 
 const page = () => {
   return (
     <div>
-      <Navbar/>
+      <Hero/>
     </div>
   );
 };
