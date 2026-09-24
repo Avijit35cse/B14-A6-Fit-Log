@@ -1,0 +1,13 @@
+
+
+const DetailsPage = async({params}:{params:Promise< id: string>}) => {
+
+    const {id} = await params
+    return (
+        <div>
+            
+        </div>
+    );
+};
+
+export default DetailsPage;
