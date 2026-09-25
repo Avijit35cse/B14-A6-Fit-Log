@@ -1,8 +1,21 @@
+"use client"
+
+import { PlanContext } from "@/context/PlanContext";
+import { useContext } from "react";
 
 const MyPlan = () => {
+
+    const { myPlan } = useContext(PlanContext)
+
+    const totalMinutes = myPlan.reduce((total, item) => 
+      total + item.duration, 0 )
+
+    const totalCalories = myPlan.reduce((total, item) => 
+        total + item.caloriesBurned,0 )
+
     return (
-       <section className="container mx-auto px-10 mt-10">
-            <div>
+       <section className="container mx-auto px-10">
+            <div className="mt-10">
                 <h1 className="twxt-[30px] text-[#FFFFFF] font-bold font-oswald">MY PLAN</h1>
                 <p className="text-[14px] text-[#8A92A0] font-regular font-inter">Cap of five lifts for today. Finish them, then load more.</p>
             </div>
@@ -15,7 +28,7 @@ const MyPlan = () => {
                     </p>
 
                     <p className="text-[28px] text-[#C2F800] font-bold font-inter mt-1">
-                        2
+                        {myPlan.length}
                     </p>
                 </div>
 
@@ -25,7 +38,7 @@ const MyPlan = () => {
                     </p>
 
                     <p className="text-[28px] text-white font-bold font-inter mt-1">
-                        23
+                        {totalMinutes}
                     </p>
                 </div>
 
@@ -35,7 +48,7 @@ const MyPlan = () => {
                     </p>
 
                     <p className="text-[28px] text-white font-bold font-inter mt-1">
-                        190
+                        {totalCalories}
                     </p>
                 </div>
 

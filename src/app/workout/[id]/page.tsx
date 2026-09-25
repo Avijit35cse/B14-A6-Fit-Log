@@ -1,5 +1,5 @@
 import { getWorkoutData } from "@/library/page";
-import { Bookmark, Plus } from "lucide-react";
+import DetailsAction from "@/components/detailsAction/DetailsAction"
 import Image from "next/image";
 
 
@@ -142,20 +142,8 @@ const DetailsPage = async({params}: {params: Promise<{ id: string }>}) => {
                             )}
                         </ol>
 
-                        {/* Buttons */}
-                        <div className="flex gap-3 mt-6">
-
-                            <button className="flex items-center gap-2 bg-[#C2F800] text-black text-xs font-bold px-4 py-3 rounded-md">
-                                <Plus size={14} />
-                                ADD TO TODAY&apos;S PLAN
-                            </button>
-
-                            <button className="flex items-center gap-2 border border-white/10 text-[#9CA3AF] text-xs px-4 py-3 rounded-md">
-                                <Bookmark size={14} />
-                                SAVE FOR LATER
-                            </button>
-
-                        </div>
+                        <DetailsAction fitness={fitness}/>
+                        
 
                     </div>
 
