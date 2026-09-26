@@ -260,9 +260,9 @@
 
                     {/* ================= METRICS ================= */}
 
-                    <div className="grid grid-cols-3 mt-5 bg-[#111217] border border-white/10 rounded-md overflow-hidden">
+                    <div className="grid grid-cols-3 mt-5 bg-[#111217] border border-white/10 rounded-md overflow-hidden py-4">
 
-                        <div className="px-4 sm:px-6 py-4 sm:py-5 border-r border-white/5">
+                        <div className="px-4 sm:px-6 py-2 sm:py-3 border-r border-white/5">
 
                             <p className="text-[8px] sm:text-[9px] text-[#6B7280] font-inter">
                                 Exercises
@@ -275,7 +275,7 @@
                         </div>
 
 
-                        <div className="px-4 sm:px-6 py-4 sm:py-5 border-r border-white/5">
+                        <div className="px-4 sm:px-6 py-2 sm:py-3 border-r border-white/5">
 
                             <p className="text-[8px] sm:text-[9px] text-[#6B7280] font-inter">
                                 Minutes
@@ -288,7 +288,7 @@
                         </div>
 
 
-                        <div className="px-4 sm:px-6 py-4 sm:py-5">
+                        <div className="px-4 sm:px-6 py-2 sm:py-3">
 
                             <p className="text-[8px] sm:text-[9px] text-[#6B7280] font-inter">
                                 Calories
