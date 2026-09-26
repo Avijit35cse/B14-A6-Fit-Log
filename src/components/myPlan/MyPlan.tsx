@@ -245,7 +245,7 @@
 
                     {/* ================= HEADER ================= */}
 
-                    <div className="pt-8 sm:pt-10">
+                    <div className="pt-8 sm:pt-10"> 
 
                         <h1 className="text-[22px] sm:text-[26px] lg:text-[30px] text-white font-bold font-oswald">
                             MY PLAN
