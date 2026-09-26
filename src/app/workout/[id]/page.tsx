@@ -1,6 +1,7 @@
 import { getWorkoutData } from "@/library/page";
 import DetailsAction from "@/components/detailsAction/DetailsAction"
 import Image from "next/image";
+import { notFound } from "next/navigation";
 
 
 const DetailsPage = async({params}: {params: Promise<{ id: string }>}) => {
@@ -12,7 +13,7 @@ const DetailsPage = async({params}: {params: Promise<{ id: string }>}) => {
     const fitness = fitnessData.find(item => item.id === Number(id))
 
     if(!fitness){
-        return <div>Workout not found</div>
+        notFound()
     }
 
     return (
