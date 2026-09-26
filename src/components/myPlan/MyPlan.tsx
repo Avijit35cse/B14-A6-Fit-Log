@@ -239,7 +239,7 @@
 
 
         return (
-            <main className="min-h-screen bg-[#0C0D10]">
+            <main className="bg-[#0C0D10]">
 
                 <section className="container mx-auto px-4 sm:px-6 lg:px-10">
 
