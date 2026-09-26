@@ -131,4 +131,204 @@ Examples include:
 * Workout added to today's plan
 * Workout saved for later
 * Duplicate workout attempts
-* Plan li
+* Plan limit reached
+* Workout removed
+* Workout saved successfully
+
+---
+
+## 📱 Responsive Design
+
+FitLog is fully responsive and optimized for:
+
+* 📱 **Mobile**
+* 💻 **Tablet**
+* 🖥️ **Desktop**
+
+The following sections adapt to different screen sizes:
+
+* Navbar
+* Hero section
+* Workout library
+* Workout cards
+* Workout details
+* My Plan
+* Footer
+
+---
+
+## ⏳ Loading & Error Handling
+
+The application includes several user-friendly loading and error states:
+
+* Loading UI while workout data is being fetched
+* My Plan loading state
+* Custom `404` page
+* Workout-not-found handling
+* API response error handling
+* Invalid workout ID handling
+
+---
+
+## 🔌 API
+
+Workout data is fetched from the FitLog API.
+
+### All Workouts
+
+```text
+https://api.abcz.workers.dev/api/fitlog
+```
+
+### Workout Details
+
+```text
+https://api.abcz.workers.dev/api/fitlog/:id
+```
+
+---
+
+## 📂 Project Structure
+
+```text
+fit-log/
+├── public/
+│
+├── src/
+│   ├── app/
+│   │   ├── my-plan/
+│   │   │   ├── loading.tsx
+│   │   │   └── page.tsx
+│   │   │
+│   │   ├── workout/
+│   │   │   └── [id]/
+│   │   │       └── page.tsx
+│   │   │
+│   │   ├── favicon.ico
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   ├── loading.tsx
+│   │   ├── not-found.tsx
+│   │   └── page.tsx
+│   │
+│   ├── components/
+│   │   ├── detailsAction/
+│   │   │   └── DetailsAction.jsx
+│   │   │
+│   │   ├── home/
+│   │   │   ├── FitnessCard.tsx
+│   │   │   ├── Hero.tsx
+│   │   │   └── Library.tsx
+│   │   │
+│   │   ├── myPlan/
+│   │   │   └── MyPlan.tsx
+│   │   │
+│   │   └── shared/
+│   │       ├── Footer.tsx
+│   │       ├── Navbar.tsx
+│   │       └── NavLink.tsx
+│   │
+│   ├── context/
+│   │   └── PlanContext.tsx
+│   │
+│   ├── library/
+│   │   └── page.tsx
+│   │
+│   └── types/
+│       └── type.ts
+│
+├── .gitignore
+├── eslint.config.mjs
+├── next-env.d.ts
+├── next.config.ts
+├── package.json
+├── package-lock.json
+├── postcss.config.mjs
+├── README.md
+└── tsconfig.json
+```
+
+---
+
+## ⚙️ Run Locally
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Avijit35cse/B14-A6-Fit-Log.git
+```
+
+### 2. Go to the Project Directory
+
+```bash
+cd fit-log
+```
+
+### 3. Install Dependencies
+
+```bash
+npm install
+```
+
+### 4. Start the Development Server
+
+```bash
+npm run dev
+```
+
+Open the application in your browser:
+
+```text
+http://localhost:3000
+```
+
+---
+
+## 📦 Production Build
+
+Create a production build:
+
+```bash
+npm run build
+```
+
+Start the production server:
+
+```bash
+npm start
+```
+
+---
+
+## 🎯 Project Highlights
+
+* 🌑 Dark and modern fitness-focused UI
+* 📱 Fully responsive design
+* 🏋️ Workout library
+* 📋 Dynamic workout details
+* 📅 Daily workout planning
+* 🔢 Five-lift plan limit
+* 🔖 Saved workouts
+* 💾 LocalStorage persistence
+* 🔍 Search functionality
+* ↕️ Workout sorting
+* ✅ Mark as Done functionality
+* 🔔 Toast notifications
+* ⏳ Loading states
+* 🚫 Custom 404 page
+* 📱 Responsive navigation
+* 🦶 Responsive footer
+
+---
+
+## 👨‍💻 Author
+
+**Avijit Barua**
+
+Built with ❤️ using **Next.js, React, TypeScript & Tailwind CSS**.
+
+---
+
+### © 2026 FitLog — Workout Library
+
+**Train hard. Log honest.**
