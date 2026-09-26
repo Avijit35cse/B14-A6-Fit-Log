@@ -1,9 +1,18 @@
+"use client"
 import Image from 'next/image';
 import NavLink from './NavLink';
+import { useContext } from 'react';
+import { PlanContext } from '@/context/PlanContext';
+import Link from 'next/link';
 
 
 
 const Navbar = () => {
+    const context = useContext(PlanContext);
+
+    const myPlan = context?.myPlan || [];
+    const savedWorkouts = context?.savedWorkouts || [];
+
     return (
         <div className="bg-[#0C0D10] border-b border-white/10 sticky top-0 z-50">
             <div className="navbar container mx-auto px-4 lg:px-10 relative">
@@ -15,26 +24,26 @@ const Navbar = () => {
                         <ul
                             tabIndex={-1}
                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                            <NavLink/>
+                            <NavLink />
                         </ul>
                     </div>
 
                     <div className="absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0 lg:mr-auto">
                         <div className="flex gap-2 items-center">
                             <Image src="/logo.png" alt="logo" width={28} height={28}></Image>
-                            <a className="text-[18px] font-bold font-oswalad">FITLOG</a>
+                            <a className="text-[18px] font-bold font-oswald">FITLOG</a>
                         </div>
                     </div>
 
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1 flex items-center gap-2">
-                        <NavLink/>
+                        <NavLink />
                     </ul>
                 </div>
                 <div className="navbar-end gap-2 lg:gap-4">
-                    <a className="text-[#D1D5DB] text-[11px] lg:text-[12px] font-medium font-inter">Plan <span className='bg-[#C2F800] font-bold text-black text-[12px] px-2 py-1 rounded-[150px]'>0</span></a>
-                    <a className="text-[#9CA3AF] text-[10px] lg:text-[12px] font-medium font-inter">Saved<span className='bg-[#C2F800] font-bold text-black text-[12px] px-2 py-1 rounded-[150px]'>0</span></a>
+                    <Link href="/my-plan?tab=today" className="text-[#D1D5DB] text-[11px] lg:text-[12px] font-medium font-inter">Plan <span className='bg-[#C2F800] font-bold text-black text-[12px] px-2 py-1 rounded-[150px]'>{myPlan.length}</span></Link>
+                    <Link href="/my-plan?tab=saved" className="text-[#9CA3AF] text-[10px] lg:text-[12px] font-medium font-inter">Saved <span className='font-bold text-[#D1D5DB] text-[12px] px-2 py-1 rounded-[150px] border border-[#9CA3AF]'>{savedWorkouts.length}</span></Link>
                 </div>
             </div>
         </div>

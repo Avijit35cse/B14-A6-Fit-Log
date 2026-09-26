@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 const Hero = () => {
     return (
@@ -19,7 +20,7 @@ const Hero = () => {
                         FitLog is a dark, no-nonsense gym companion: pick a lift, lock it
                         into today&apos;s plan, and watch the week&apos;s work add up.
                     </p>
-                    <button className="btn btn-primary bg-[#C2F800] text-[12px] text-[#000000] font-bold font-inter">BROWSE WORKOUTS</button>
+                    <Link href="library" className="btn btn-primary bg-[#C2F800] text-[12px] text-[#000000] font-bold font-inter">BROWSE WORKOUTS</Link>
                 </div>
             </div>
         </div>

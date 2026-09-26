@@ -1,81 +1,94 @@
-"use client"
+"use client";
 
-import { PlanContext } from '@/context/PlanContext';
-import { Bookmark, Plus } from 'lucide-react';
-import { useContext } from 'react';
-import { toast } from 'react-toastify';
-
+import { PlanContext } from "@/context/PlanContext";
+import { Bookmark, Plus } from "lucide-react";
+import { useContext } from "react";
+import { toast } from "react-toastify";
 
 const DetailsAction = ({ fitness }) => {
+    const context = useContext(PlanContext);
 
-    const { addToPlan } = useContext(PlanContext)
+    const myPlan = context?.myPlan || [];
+    const addToPlan = context?.addToPlan;
+    const saveWorkout = context?.saveWorkout;
+
+    const alreadyAdded = myPlan.some(
+        (item) => item.id === fitness.id
+    );
+
+    const planFull = myPlan.length >= 5;
 
     // Add function
-    const handleAdd = () =>{
-        const savedPlan = JSON.parse(
-            localStorage.getItem("myPlan") || "[]"
-        )
-
-        // Already added section
-
-        const alreadyAdded = savedPlan.some((item) => item.id === fitness.id)
-
-        if (alreadyAdded){
-            return toast.error("This workout is already on your plan");
+    const handleAdd = () => {
+        if (alreadyAdded) {
+            return toast.error(
+                "This workout is already in today's plan!"
+            );
         }
 
-        // Maximum 5 lifts
-
-        if(savedPlan.length >= 5){
-            return toast.error("You can add maximum 5 lifts to today's plan")
+        if (planFull) {
+            return toast.error(
+                "Today's plan already has 5 lifts!"
+            );
         }
 
-        const updatePlan = [...savedPlan,fitness]
+        if (!addToPlan) return;
 
-        localStorage.setItem("myPlan",JSON.stringify(updatePlan))
-        toast.success("Workout added to today's plan!")
-    
-    }
+        const added = addToPlan(fitness);
 
-    // Save For later function
-    const handleSave = ()=>{
-
-        const savedWorkouts = JSON.parse(
-            localStorage.getItem("savedWorkouts") || "[]"
-        )
-
-        // Already saved
-
-        const alreadySaved = savedWorkouts.some((item)=> item.id === fitness.id)
-        
-        if(alreadySaved){
-            return toast.error("This workout is already saved!")
+        if (!added) {
+            return toast.error(
+                "Unable to add this workout!"
+            );
         }
 
-        const updateSaved = [...savedWorkouts,fitness]
-        localStorage.setItem("savedWorkouts", JSON.stringify(updateSaved))
-        toast.success("Workout saved for later")
+        toast.success(
+            "Workout added to today's plan!"
+        );
+    };
 
-    }
+    // Save For Later function
+    const handleSave = () => {
+        if (!saveWorkout) return;
+
+        const saved = saveWorkout(fitness);
+
+        if (!saved) {
+            return toast.error(
+                "This workout is already saved!"
+            );
+        }
+
+        toast.success(
+            "Workout saved for later!"
+        );
+    };
 
     return (
         <div className="flex gap-3 mt-6">
-
-            <button className="flex items-center gap-2 bg-[#C2F800] text-black text-xs font-bold px-4 py-3 rounded-md"
-            onClick={handleAdd}>
+            <button
+                className="flex items-center gap-2 bg-[#C2F800] text-black text-xs font-bold px-4 py-3 rounded-md disabled:opacity-40 disabled:cursor-not-allowed"
+                onClick={handleAdd}
+                disabled={alreadyAdded || planFull}
+            >
                 <Plus size={14} />
-                ADD TO TODAY&apos;S PLAN
+
+                {alreadyAdded
+                    ? "ALREADY IN PLAN"
+                    : planFull
+                    ? "PLAN IS FULL"
+                    : "ADD TO TODAY'S PLAN"}
             </button>
 
-            <button className="flex items-center gap-2 border border-white/10 text-[#9CA3AF] text-xs px-4 py-3 rounded-md"
-            onClick={handleSave}>
+            <button
+                className="flex items-center gap-2 border border-white/10 text-[#9CA3AF] text-xs px-4 py-3 rounded-md"
+                onClick={handleSave}
+            >
                 <Bookmark size={14} />
                 SAVE FOR LATER
             </button>
-
         </div>
     );
 };
-
 
 export default DetailsAction;

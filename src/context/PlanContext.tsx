@@ -1,63 +1,169 @@
-"use client"
-import { useState, createContext, useEffect } from "react";
+"use client";
 
+import { Iworkout } from "@/types/type";
+import {
+    createContext,
+    ReactNode,
+    useEffect,
+    useState,
+} from "react";
 
-type Fitness = { id: string | number; [key: string]: unknown }
+type PlanContextType = {
+    myPlan: Iworkout[];
+    savedWorkouts: Iworkout[];
 
-export const PlanContext = createContext<{
-    myPlan: Fitness[]
-    addToPlan: (fitness: Fitness) => boolean
-    removeFromPlan: (id: Fitness["id"]) => void
-} | undefined>(undefined)
+    addToPlan: (workout: Iworkout) => boolean;
+    removeFromPlan: (id: string | number) => void;
 
-const PlanProvider = ({ children }) => {
+    saveWorkout: (workout: Iworkout) => boolean;
+    removeFromSaved: (id: string | number) => void;
+};
 
-    const [myPlan, setMyPlan] = useState<Fitness[]>([])
+export const PlanContext =
+    createContext<PlanContextType | null>(null);
 
-    useEffect(()=> {
-        const savedPlan = JSON.parse(localStorage.getItem("myPlan") || "[]")
+const PlanProvider = ({
+    children,
+}: {
+    children: ReactNode;
+}) => {
+    const [myPlan, setMyPlan] = useState<Iworkout[]>([]);
+    const [savedWorkouts, setSavedWorkouts] =
+        useState<Iworkout[]>([]);
 
-        setMyPlan(savedPlan)
-    },[])
+    const [loaded, setLoaded] = useState(false);
 
-    const addToPlan = (fitness: Fitness) => {
+    // ================= LOAD FROM LOCAL STORAGE =================
 
+    useEffect(() => {
+    const timer = setTimeout(() => {
+        const storedPlan =
+            localStorage.getItem("myPlan");
+
+        const storedSaved =
+            localStorage.getItem("savedIworkouts");
+
+        if (storedPlan) {
+            setMyPlan(JSON.parse(storedPlan));
+        }
+
+        if (storedSaved) {
+            setSavedWorkouts(
+                JSON.parse(storedSaved)
+            );
+        }
+
+        setLoaded(true);
+    }, 0);
+
+    return () => clearTimeout(timer);
+}, []);
+
+    // ================= SAVE PLAN =================
+
+    useEffect(() => {
+        if (!loaded) return;
+
+        localStorage.setItem(
+            "myPlan",
+            JSON.stringify(myPlan)
+        );
+    }, [myPlan, loaded]);
+
+    // ================= SAVE SAVED WORKOUTS =================
+
+    useEffect(() => {
+        if (!loaded) return;
+
+        localStorage.setItem(
+            "savedWorkouts",
+            JSON.stringify(savedWorkouts)
+        );
+    }, [savedWorkouts, loaded]);
+
+    // ================= ADD TO TODAY'S PLAN =================
+
+    const addToPlan = (workout: Iworkout): boolean => {
+        // Maximum 5 lifts
         if (myPlan.length >= 5) {
-            return false
+            return false;
         }
 
-    const alreadyAdded = myPlan.some((item) => item.id === fitness.id)
+        // Prevent duplicate workout
+        const alreadyExists = myPlan.some(
+            (item) => item.id === workout.id
+        );
 
-        if (alreadyAdded) {
-            return false
+        if (alreadyExists) {
+            return false;
         }
-        const updatedPlan = [...myPlan, fitness] 
-        setMyPlan(updatedPlan)
 
-        localStorage.setItem("myPlan", JSON.stringify(updatedPlan))
+        setMyPlan((previous) => [
+            ...previous,
+            workout,
+        ]);
 
-        return true
-    }
-    const removeFromPlan = (id) => {
+        // Successfully added
+        return true;
+    };
 
-        const updatedPlan = myPlan.filter((item) => item.id !== id)
-        setMyPlan(updatedPlan)
+    // ================= REMOVE FROM PLAN =================
 
-        localStorage.setItem("myPlan", JSON.stringify(updatedPlan))
-    }
+    const removeFromPlan = (
+        id: string | number
+    ) => {
+        setMyPlan((previous) =>
+            previous.filter(
+                (item) => item.id !== id
+            )
+        );
+    };
 
-    const shareState = {
-        myPlan,
-        addToPlan,
-        removeFromPlan,
-    }
+    // ================= SAVE WORKOUT =================
 
+    const saveWorkout = (workout: Iworkout): boolean => {
+        const alreadySaved = savedWorkouts.some(
+            (item) => item.id === workout.id
+        );
+
+        if (alreadySaved) {
+            return false;
+        }
+
+        // NO 5 ITEM LIMIT HERE
+        setSavedWorkouts((previous) => [
+            ...previous,
+            workout,
+        ]);
+
+        // Successfully saved
+        return true;
+    };
+
+    // ================= REMOVE FROM SAVED =================
+
+    const removeFromSaved = (
+        id: string | number
+    ) => {
+        setSavedWorkouts((previous) =>
+            previous.filter(
+                (item) => item.id !== id
+            )
+        );
+    };
 
     return (
-        <PlanContext.Provider value={shareState}>
-
+        <PlanContext.Provider
+            value={{
+                myPlan,
+                savedWorkouts,
+                addToPlan,
+                removeFromPlan,
+                saveWorkout,
+                removeFromSaved,
+            }}
+        >
             {children}
-
         </PlanContext.Provider>
     );
 };
